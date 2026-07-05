@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Vitrine-Conteudos</title>
+
+<!-- Metadados Open Graph (Facebook, WhatsApp, Telegram) -->
+<meta property="og:title" content="Compra Grupos de WhatsApp e Telegram">
+<meta property="og:description" content="Bom preço acessível com um clique na vitrine.">
+<meta property="og:image" content="https://cp-vazou-conteudos-vitrine.onrender.com/icone.png">
+<meta property="og:url" content="https://cp-vazou-conteudos-vitrine.onrender.com/">
+<meta property="og:type" content="website">
+
+<!-- Metadados Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compra Grupos de WhatsApp e Telegram">
+<meta name="twitter:description" content="Bom preço acessível com um clique na vitrine.">
+<meta name="twitter:image" content="https://cp-vazou-conteudos-vitrine.onrender.com/icone.png">
+
+<!-- Ícones -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Fontes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14101B;
+  --bg-elev:#1A1522;
+  --surface:#201A2B;
+  --surface-2:#291F37;
+  --border:#332844;
+  --text:#F3EEE8;
+  --text-dim:#A79DB5;
+  --text-faint:#6E6480;
+  --gold:#D4A54A;
+  --gold-dim:#D4A54A22;
+  --rose:#C9738C;
+  --rose-dim:#C9738C22;
+  --ok:#6FBF8B;
+  --max:480px;
+  --radius:18px;
+}
+/* ===== LIGHT / BLUE THEME OVERRIDE ===== */
+body[data-theme="light"]{
+  --bg:#EAF3FC;
+  --bg-elev:#F6FAFF;
+  --surface:#FFFFFF;
+  --surface-2:#EEF5FD;
+  --border:#D6E4F5;
+  --text:#132339;
+  --text-dim:#51698A;
+  --text-faint:#8AA1BE;
+  --gold:#2F6FE4;
+  --gold-dim:#2F6FE41f;
+  --rose:#D2637F;
+  --rose-dim:#D2637F22;
+  --ok:#2E9A63;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overscroll-behavior:none;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;height:100vh;height:100dvh;overflow:hidden;transition:background .25s ease,color .25s ease;}
+.serif{font-family:'Fraunces',serif;}
+.mono{font-family:'JetBrains Mono',monospace;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+img{display:block;max-width:100%;}
+.app{max-width:var(--max);margin:0 auto;height:100vh;height:100dvh;position:relative;overflow:hidden;background:
+  radial-gradient(100% 50% at 50% -10%, color-mix(in srgb, var(--gold) 14%, transparent) 0%, transparent 60%), var(--bg);
+  display:flex;flex-direction:column;}
+
+/* ===== SPLASH ===== */
+#splash{
+  position:fixed;inset:0;z-index:200;
+  overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  gap:14px;padding-bottom:64px;transition:opacity .6s ease;
+  background:var(--bg);
+}
+#splash.hide{opacity:0;pointer-events:none;}
+.splash-photo{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  z-index:0;
+}
+.splash-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(10,8,14,.25) 0%, rgba(10,8,14,.55) 60%, rgba(10,8,14,.92) 100%);
+}
+.splash-spinner{
+  position:relative;z-index:2;
+  width:34px;height:34px;
+  border-radius:50%;
+  border:3px solid rgba(243,238,232,.25);
+  border-top-color:#F3EEE8;
+  animation:splash-spin 0.9s linear infinite;
+}
+@keyframes splash-spin{ to{ transform:rotate(360deg); } }
+.splash-label{position:relative;z-index:2;font-size:12px;color:#F3EEE8;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-shadow:0 2px 10px rgba(0,0,0,.6);}
+.splash-progress-track{
+  position:relative;z-index:2;
+  width:150px;height:3px;border-radius:99px;
+  background:rgba(243,238,232,.22);overflow:hidden;
+}
+.splash-progress-fill{
+  width:0%;height:100%;border-radius:99px;
+  background:linear-gradient(90deg, var(--gold), #F3EEE8);
+  transition:width 5s linear;
+}
+
+/* ===== HEADER ===== */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 18px;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);flex-shrink:0;}
+.brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;letter-spacing:-.01em;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;}
+.brand:active{opacity:.65;}
+.head-actions{display:flex;align-items:center;gap:10px;}
+
+/* ===== PULL TO REFRESH ===== */
+#pullRefresh{
+  position:absolute;top:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:center;
+  height:0;overflow:hidden;
+  color:var(--text-dim);font-size:12px;font-weight:600;gap:8px;
+  transition:height .18s ease;
+  z-index:40;flex-shrink:0;
+}
+#pullRefresh .pr-spinner{
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--border);border-top-color:var(--gold);
+  transition:transform .05s linear;
+}
+#pullRefresh.spin .pr-spinner{animation:splash-spin .6s linear infinite;}
+
+/* ===== SCROLL AREA ===== */
+.app-scroll{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;padding-bottom:calc(78px + env(safe-area-inset-bottom));position:relative;}
+
+/* ===== TABS / VIEWS ===== */
+.view{display:none;padding-bottom:28px;}
+.view.active{display:block;}
+
+/* ===== HERO ===== */
+.hero{padding:28px 18px 6px;position:relative;min-height:260px;}
+.hero-text{transition:opacity .6s ease;opacity:1;}
+.hero-text.fading{opacity:0;pointer-events:none;}
+.eyebrow{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid var(--border);padding:5px 11px;border-radius:99px;margin-bottom:16px;font-weight:600;}
+h1{font-family:'Fraunces',serif;font-size:32px;line-height:1.12;font-weight:600;letter-spacing:-.01em;margin-bottom:12px;}
+h1 em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:14.5px;color:var(--text-dim);line-height:1.55;max-width:36ch;margin-bottom:22px;}
+
+/* ===== HERO MEDIA CARROSSEL ===== */
+.hero-carousel{
+  position:absolute;inset:0;border-radius:20px;overflow:hidden;
+  opacity:0;pointer-events:none;transition:opacity .6s ease;
+  background:#000;
+}
+.hero-carousel.show{opacity:1;pointer-events:auto;}
+.hero-carousel-slide{
+  position:absolute;inset:0;
+  opacity:0;transition:opacity .5s ease;
+  display:flex;align-items:center;justify-content:center;
+  background:#000;
+}
+.hero-carousel-slide.active{opacity:1;}
+/* Fotos/GIFs preenchem o quadro todo (cortando as bordas se necessário) */
+.hero-carousel-slide img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+}
+/* Vídeos aparecem SEMPRE completos, sem cortar (pode sobrar faixa preta nas laterais/topo) */
+.hero-carousel-slide video{
+  width:100%;height:100%;object-fit:contain;object-position:center;background:#000;
+}
+.hero-carousel-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,8,14,.15) 0%, rgba(10,8,14,.05) 40%, rgba(10,8,14,.55) 100%);
+  pointer-events:none;
+}
+.hero-carousel-close{
+  position:absolute;top:12px;right:12px;z-index:5;
+  width:34px;height:34px;border-radius:10px;
+  background:rgba(10,8,14,.55);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.18);
+}
+.hero-carousel-close:active{transform:scale(.92);}
+.hero-carousel-close svg{width:16px;height:16px;stroke:#fff;}
+.hero-carousel-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(10,8,14,.45);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.15);
+}
+.hero-carousel-arrow:active{transform:translateY(-50%) scale(.9);}
+.hero-carousel-arrow svg{width:16px;height:16px;stroke:#fff;}
+.hero-carousel-arrow.prev{left:10px;}
+.hero-carousel-arrow.next{right:10px;}
+.hero-carousel-dots{
+  position:absolute;bottom:12px;left:0;right:0;z-index:5;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.hero-carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .2s ease;}
+.hero-carousel-dot.active{background:#fff;width:16px;border-radius:4px;}
+
+/* ===== SECTION HEADS ===== */
+.section{padding:26px 18px 6px;}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;}
+.section-kicker{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:600;}
+.section-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;}
+.link-more{font-size:12.5px;color:var(--text-dim);font-weight:600;}
+
+/* ===== FEATURED / MARKET GRID ===== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.item-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:transform .15s ease;touch-action:pan-y;}
+.item-card:active{transform:scale(.97);}
+.item-thumb{aspect-ratio:1/1;position:relative;display:flex;align-items:center;justify-content:center;font-size:30px;background:linear-gradient(140deg,var(--card-a,#2A1E3A),var(--card-b,#1A1522));overflow:hidden;}
+.item-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.type-badge{position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:4px;background:rgba(10,8,14,.6);backdrop-filter:blur(4px);color:#fff;font-size:9.5px;font-weight:800;padding:4px 8px;border-radius:7px;z-index:2;letter-spacing:.02em;}
+.type-badge svg{width:11px;height:11px;stroke:#fff;flex-shrink:0;}
+.item-body{padding:11px 12px 13px;}
+.item-name{font-weight:700;font-size:13px;margin-bottom:2px;line-height:1.25;}
+.item-seller{font-size:11px;color:var(--text-faint);margin-bottom:8px;}
+.item-row{display:flex;align-items:center;justify-content:space-between;}
+.item-price{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13.5px;color:var(--gold);}
+
+/* list (stacked) layout mode */
+body.layout-list .grid2,
+body.layout-list .market-grid{grid-template-columns:1fr;}
+body.layout-list .item-card{display:flex;flex-direction:row;align-items:stretch;}
+body.layout-list .item-thumb{width:92px;aspect-ratio:1/1;flex-shrink:0;font-size:24px;}
+body.layout-list .item-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:10px 12px;}
+
+/* fixed banners */
+.banners{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+@media(min-width:560px){.banners{flex-direction:row;}}
+.banner{flex:1;border-radius:18px;padding:20px;position:relative;overflow:hidden;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--border);}
+.banner.b1{background:linear-gradient(135deg,color-mix(in srgb, var(--gold) 18%, var(--surface)),var(--surface));}
+.banner.b2{background:linear-gradient(135deg,color-mix(in srgb, var(--rose) 22%, var(--surface)),var(--surface));}
+.banner-title{font-family:'Fraunces',serif;font-weight:600;font-size:16px;margin-bottom:3px;}
+.banner-sub{font-size:11.5px;color:var(--text-dim);}
+
+/* ===== MERCADO ===== */
+.filter-row-wrap{padding:2px 0 16px;}
+.filter-row{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;touch-action:pan-x;-webkit-overflow-scrolling:touch;padding:2px 18px;-ms-overflow-style:none;scrollbar-width:none;}
+.filter-row::-webkit-scrollbar{display:none;}
+.filter-chip{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:99px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);white-space:nowrap;}
+.filter-chip.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px;touch-action:pan-y;}
+.load-more{display:block;margin:20px auto 0;padding:12px 24px;border-radius:99px;background:var(--surface);border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text-dim);}
+.ad-slot{margin:20px 18px 0;border:1px dashed var(--border);border-radius:16px;padding:16px;text-align:center;font-size:11.5px;color:var(--text-faint);font-family:'JetBrains Mono',monospace;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:8px;}
+.ad-slot svg{width:16px;height:16px;stroke:var(--gold);flex-shrink:0;}
+
+/* ===== BUTTONS ===== */
+.btn{padding:14px 18px;border-radius:13px;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:7px;flex:1;transition:transform .15s ease;}
+.btn:active{transform:scale(.96);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),color-mix(in srgb, var(--gold) 60%, black));color:#fff;}
+body:not([data-theme="light"]) .btn-gold{color:#1A1522;}
+.btn-ghost{background:var(--surface-2);border:1px solid var(--border);color:var(--text);}
+.btn-small{padding:10px 14px;font-size:12.5px;flex:none;}
+
+/* ===== SEGMENTED CONTROLS ===== */
+.seg-group{display:flex;gap:8px;flex-wrap:wrap;}
+.seg-btn{padding:9px 14px;border-radius:11px;font-size:12px;font-weight:700;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);}
+.seg-btn.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+
+/* ===== PREFERÊNCIAS (linhas simples, sem caixa) ===== */
+.pref-list{display:flex;flex-direction:column;}
+.pref-row{display:flex;align-items:center;gap:12px;padding:13px 2px;}
+.pref-icon{width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.pref-icon svg{width:18px;height:18px;stroke:var(--gold);}
+.pref-row-title{flex:1;font-size:13.5px;font-weight:600;}
+.lang-options{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+.lang-opt{font-size:12.5px;font-weight:600;color:var(--text-faint);padding:2px;}
+.lang-opt.active{color:var(--gold);font-weight:700;}
+
+/* ===== PERFIL ===== */
+.profile-guest{margin:0 18px;text-align:center;padding:32px 20px;background:var(--surface);border:1px solid var(--border);border-radius:20px;}
+.profile-guest svg{width:36px;height:36px;stroke:var(--text-faint);margin-bottom:12px;}
+.profile-guest h3{font-family:'Fraunces',serif;font-size:18px;margin-bottom:6px;}
+.profile-guest p{font-size:13px;color:var(--text-dim);margin-bottom:18px;line-height:1.5;}
+.ref-banner{margin:0 18px 14px;padding:12px 14px;border-radius:14px;background:var(--gold-dim);border:1px solid var(--gold);font-size:12.5px;color:var(--gold);font-weight:600;text-align:center;}
+.guest-prefs{margin:16px 18px 0;}
+.guest-pref-block{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+.guest-pref-label{font-size:11.5px;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px;}
+
+.profile-in{display:none;padding:0 18px;}
+.profile-in.open{display:block;}
+.profile-card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;margin-bottom:14px;}
+.avatar-lg{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--gold),color-mix(in srgb, var(--gold) 60%, black));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#fff;flex-shrink:0;}
+.profile-email{font-size:13px;color:var(--text-dim);margin-top:2px;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center;}
+.stat-value{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;color:var(--gold);}
+.stat-label{font-size:9.5px;color:var(--text-faint);margin-top:3px;text-transform:uppercase;letter-spacing:.03em;}
+
+.block-title{font-size:12px;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;margin:18px 0 10px;}
+.invite-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.invite-box p{font-size:12.5px;color:var(--text-dim);line-height:1.5;}
+.invite-link-row{display:flex;gap:8px;margin-top:12px;}
+.invite-link-input{flex:1;padding:11px 12px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);font-size:11.5px;font-family:'JetBrains Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.invite-copy-btn{padding:11px 14px;border-radius:10px;background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold);font-weight:700;font-size:12px;white-space:nowrap;}
+.invite-count-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.invite-count-num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;color:var(--gold);}
+.invite-count-label{font-size:11px;color:var(--text-faint);}
+
+.settings-list{display:flex;flex-direction:column;gap:10px;}
+.settings-item{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+.settings-item.clickable{cursor:pointer;}
+.settings-icon{width:36px;height:36px;border-radius:10px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.settings-icon svg{width:17px;height:17px;stroke:var(--gold);}
+.settings-text{flex:1;}
+.settings-title{font-size:13.5px;font-weight:700;}
+.settings-sub{font-size:11.5px;color:var(--text-faint);margin-top:1px;}
+.chevron{width:16px;height:16px;stroke:var(--text-faint);flex-shrink:0;transition:transform .2s ease;}
+.chevron.open{transform:rotate(90deg);}
+.toggle{width:42px;height:24px;border-radius:99px;background:var(--surface-2);border:1px solid var(--border);position:relative;flex-shrink:0;}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--text-faint);transition:all .2s ease;}
+.toggle.on{background:var(--gold-dim);border-color:var(--gold);}
+.toggle.on::after{background:var(--gold);left:20px;}
+
+.security-form{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;margin-top:-10px;padding:4px 16px 16px;}
+.security-form.open{display:block;}
+.security-form input{width:100%;padding:12px 13px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:13.5px;margin-bottom:10px;}
+.security-form input::placeholder{color:var(--text-faint);}
+.security-form .btn{width:100%;}
+.logout-btn{display:block;width:100%;text-align:center;margin-top:16px;padding:13px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;}
+
+/* signup modal */
+#authModal{position:fixed;inset:0;z-index:150;background:rgba(10,8,14,.85);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+#authModal.open{opacity:1;pointer-events:auto;}
+.auth-card{width:100%;max-width:360px;max-height:88vh;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:26px 22px;}
+.auth-title{font-family:'Fraunces',serif;font-size:21px;font-weight:600;margin-bottom:6px;}
+.auth-sub{font-size:12.5px;color:var(--text-dim);margin-bottom:16px;line-height:1.5;}
+.auth-tabs{display:flex;gap:6px;background:var(--surface-2);padding:4px;border-radius:12px;margin-bottom:18px;}
+.auth-tab{flex:1;padding:9px;border-radius:9px;font-size:12.5px;font-weight:700;color:var(--text-dim);text-align:center;}
+.auth-tab.active{background:var(--surface);color:var(--gold);}
+.field-label{display:block;font-size:11.5px;font-weight:600;color:var(--text-dim);margin-bottom:6px;}
+.auth-card input{width:100%;padding:13px 14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:14px;margin-bottom:14px;}
+.auth-card input::placeholder{color:var(--text-faint);}
+.auth-ref-note{font-size:11.5px;color:var(--gold);background:var(--gold-dim);border:1px solid var(--gold);padding:8px 10px;border-radius:10px;margin-bottom:14px;}
+
+/* ===== COMUNIDADE ===== */
+.community-list{padding:0 18px;display:flex;flex-direction:column;gap:10px;}
+.comm-row{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;}
+.comm-icon{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.comm-icon svg{width:21px;height:21px;}
+.comm-title{font-weight:700;font-size:13.5px;}
+.comm-sub{font-size:11.5px;color:var(--text-faint);margin-top:2px;}
+.comm-note{padding:16px 4px 4px;font-weight:700;font-size:13px;line-height:1.6;color:var(--text);}
+.comm-social-label{padding:6px 4px 2px;font-size:11px;font-weight:700;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em;}
+.comm-social-row{display:flex;gap:10px;padding:4px 4px 2px;}
+.comm-social-btn{width:46px;height:46px;border-radius:14px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.comm-social-btn:active{transform:scale(.94);}
+.comm-social-btn svg{width:20px;height:20px;stroke:var(--gold);}
+
+/* ===== IMAGE VIEWER ===== */
+#imageViewerOverlay{position:fixed;inset:0;z-index:180;background:rgba(10,8,14,.95);display:none;align-items:center;justify-content:center;padding:16px;}
+#imageViewerOverlay.open{display:flex;}
+.image-viewer-container{position:relative;width:100%;max-width:100%;max-height:100vh;display:flex;align-items:center;justify-content:center;}
+.image-viewer-content{position:relative;width:100%;height:auto;}
+#imageViewerImg{width:100%;height:auto;border-radius:12px;max-height:85vh;object-fit:contain;}
+.image-viewer-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;}
+.image-viewer-close:active{transform:scale(.95);}
+.image-viewer-close svg{width:18px;height:18px;stroke:var(--text);}
+
+/* ===== TABBAR ===== */
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:60;width:100%;max-width:var(--max);background:color-mix(in srgb, var(--bg) 94%, transparent);backdrop-filter:blur(18px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-faint);font-size:10px;font-weight:600;padding:4px 8px;}
+.tab.active{color:var(--gold);}
+.tab svg{width:20px;height:20px;}
+
+/* toast */
+#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface-2);border:1px solid var(--border);padding:12px 18px;border-radius:12px;font-size:13px;font-weight:600;z-index:180;opacity:0;transition:all .25s ease;pointer-events:none;display:flex;align-items:center;gap:8px;max-width:88%;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#toast svg{width:15px;height:15px;stroke:var(--ok);flex-shrink:0;}
+
+::-webkit-scrollbar{width:0;}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <img class="splash-photo" src="https://i.postimg.cc/LsJN84Rk/photo-2025-03-12-09-00-25.jpg" alt="">
+  <div class="splash-overlay"></div>
+  <div class="splash-spinner"></div>
+  <div class="splash-label">Loading</div>
+  <div class="splash-progress-track"><div class="splash-progress-fill" id="splashProgress"></div></div>
+</div>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand" id="brandLogo" onclick="location.reload()">Vitrine</div>
+    <div class="head-actions"></div>
+  </header>
+
+  <div class="app-scroll" id="appScroll">
+
+  <div id="pullRefresh"><span class="pr-spinner"></span><span id="pullRefreshLabel">Puxe para atualizar</span></div>
+
+  <!-- ===== HOME ===== -->
+  <section class="view active" id="view-home">
+    <div class="hero" id="heroWrap">
+      <div class="hero-text" id="heroText">
+        <span class="eyebrow" data-i18n="tagline_eyebrow">Bem-vindo(a)</span>
+        <h1 data-i18n-html="hero_title">O seu conteúdo, <em>à sua maneira.</em></h1>
+        <p class="hero-sub" data-i18n="hero_sub">Compre fotos, vídeos e acesso a grupos exclusivos. Ou torne-se vendedor e comece a divulgar o seu próprio trabalho.</p>
+      </div>
+
+      <div class="hero-carousel" id="heroCarousel">
+        <div class="hero-carousel-scrim"></div>
+        <button class="hero-carousel-close" onclick="heroCloseCarousel()" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+        </button>
+        <button class="hero-carousel-arrow prev" onclick="heroCarouselNav(-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="hero-carousel-arrow next" onclick="heroCarouselNav(1)" aria-label="Seguinte">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div id="heroCarouselSlides"></div>
+        <div class="hero-carousel-dots" id="heroCarouselDots"></div>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top:6px;">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker" data-i18n="kicker_featured">Em destaque</div>
+          <div class="section-title" data-i18n="title_featured">Selecionados para si</div>
+        </div>
+      </div>
+      <div class="grid2" id="featuredGrid"></div>
+    </div>
+
+    <div class="section" style="padding-top:6px;">
+      <div class="banners">
+        <div class="banner b1">
+          <div class="banner-title" data-i18n="banner1_title">Torne-se vendedor</div>
+          <div class="banner-sub" data-i18n="banner1_sub">Venda o seu conteúdo dentro da própria vitrine</div>
+        </div>
+        <div class="banner b2">
+          <div class="banner-title" data-i18n="banner2_title">Comunidade</div>
+          <div class="banner-sub" data-i18n="banner2_sub">Grupos oficiais no WhatsApp e Telegram</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MERCADO ===== -->
+  <section class="view" id="view-mercado">
+    <div class="section" style="padding-top:20px;">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker" data-i18n="kicker_market">Mercado</div>
+          <div class="section-title" data-i18n="title_market">Tudo à venda</div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-row-wrap">
+      <div class="filter-row" id="filterRow"></div>
+    </div>
+    <div class="market-grid" id="marketGrid"></div>
+    <button class="load-more" id="loadMoreBtn" onclick="loadMore()" data-i18n="load_more">Ver mais</button>
+    <div class="ad-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 001 1h2l4 4V6L6 10H4a1 1 0 00-1 1z"/><path d="M15 8a3 3 0 010 8"/><path d="M18 5a7 7 0 010 14"/></svg><span data-i18n="ad_slot">ESPAÇO PUBLICITÁRIO · anúncio patrocinado</span></div>
+  </section>
+
+  <!-- ===== COMUNIDADE ===== -->
+  <section class="view" id="view-comunidade">
+    <div class="section-head" style="padding:20px 18px 14px;">
+      <div>
+        <div class="section-kicker" data-i18n="kicker_community">Comunidade</div>
+        <div class="section-title" data-i18n="title_community">Grupos oficiais</div>
+      </div>
+    </div>
+ <div class="community-list">
+      <a href="https://chat.whatsapp.com/CgE0t94JUcD3hhg0AtvLzp?s=cl&p=a&ilr=2" class="comm-row" target="_blank">
+        <div class="comm-icon" style="background:#25D36622;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="comm-title" data-i18n="comm_wpp_title">Grupo da Comunidade — WhatsApp</div>
+          <div class="comm-sub" data-i18n="comm_wpp_sub">Avisos e novidades · aberto a todos</div>
+        </div>
+      </a>
+      <a href="https://t.me/+WBQdQE3QnLcyMjE0" class="comm-row" target="_blank">
+        <div class="comm-icon" style="background:#2AABEE22;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2AABEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="comm-title" data-i18n="comm_tg_title">Canal do Telegram</div>
+          <div class="comm-sub" data-i18n="comm_tg_sub">Publicações e catálogo</div>
+        </div>
+      </a>
+      <a href="https://wa.me/945561341" class="comm-row" target="_blank">
+        <div class="comm-icon" style="background:var(--gold-dim);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.05 5A5 5 0 0119 8.95M15.05 1A9 9 0 0123 8.95M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+
+        <div style="flex:1;">
+          <div class="comm-title" data-i18n="comm_manager_title">Contactar o Gerente</div>
+          <div class="comm-sub" data-i18n="comm_manager_sub">Suporte direto via WhatsApp</div>
+        </div>
+      </a>
+      <div class="comm-note" data-i18n="comm_note">Para comprar qualquer tipo de grupo entre em contacto, para postar no site seus artigos entre em contacto, temos todo tipo de grupo e conteúdos. Convide e tenha conteúdos sem comprar — desbloqueie grátis.</div>
+      <div class="comm-social-label" data-i18n="comm_social_label">Siga-nos nas redes sociais</div>
+      <div class="comm-social-row">
+        <a href="#" class="comm-social-btn" onclick="return false;" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="comm-social-btn" onclick="return false;" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" class="comm-social-btn" onclick="return false;" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v10.5a3.5 3.5 0 11-3.5-3.5"/><path d="M14 3a5 5 0 005 5"/></svg>
+        </a>
+        <a href="#" class="comm-social-btn" onclick="return false;" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PERFIL ===== -->
+  <section class="view" id="view-perfil">
+    <div class="section-head" style="padding:20px 18px 14px;">
+      <div>
+        <div class="section-kicker" data-i18n="kicker_profile">Perfil</div>
+        <div class="section-title" data-i18n="title_profile">A sua conta</div>
+      </div>
+    </div>
+
+    <div id="refBanner" class="ref-banner" style="display:none;"></div>
+
+    <!-- GUEST STATE -->
+    <div class="profile-guest" id="profileGuest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+      <h3 data-i18n="guest_title">Está a navegar como visitante</h3>
+      <p data-i18n="guest_sub">Conteúdo totalmente desbloqueado para todos. Inscreva-se para ter vitrine própria e acesso à comunidade exclusiva.</p>
+      <button class="btn btn-gold" onclick="openAuth('signup')" data-i18n="guest_cta">Inscrever-se com email</button>
+    </div>
+
+    <div class="guest-prefs" id="guestPrefs">
+      <div class="pref-list" id="prefListGuest"></div>
+    </div>
+
+    <!-- LOGGED-IN STATE -->
+    <div class="profile-in" id="profileIn">
+      <div class="profile-card">
+        <div class="avatar-lg" id="avatarInitial">?</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;" id="profileNameShown">--</div>
+          <div class="profile-email" id="profileEmailShown">--</div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statPoints">0</div>
+          <div class="stat-label" data-i18n="stat_points">Pontos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statOnline">0</div>
+          <div class="stat-label" data-i18n="stat_online">Vezes online</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBalance">0</div>
+          <div class="stat-label" data-i18n="stat_balance">Saldo (Kz)</div>
+        </div>
+      </div>
+
+      <div class="block-title" data-i18n="invite_title">Convide e ganhe</div>
+      <div class="invite-box">
+        <p data-i18n="invite_sub">Cada pessoa que se inscrever com o seu link soma 50 pontos à sua conta.</p>
+        <div class="invite-link-row">
+          <input class="invite-link-input" id="inviteLinkInput" readonly>
+          <button class="invite-copy-btn" onclick="copyInviteLink()" data-i18n="invite_copy">Copiar link</button>
+        </div>
+        <div class="invite-count-row">
+          <div>
+            <div class="invite-count-num" id="statInvites">0</div>
+            <div class="invite-count-label" data-i18n="invite_count_label">Pessoas convidadas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title" data-i18n="pref_title">Preferências</div>
+      <div class="settings-list">
+        <div class="pref-list" id="prefListIn"></div>
+        <div class="settings-item clickable" onclick="openSellerWhatsapp()">
+          <div class="settings-icon" style="background:#25D36622;"><svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+          <div class="settings-text"><div class="settings-title" data-i18n="seller_title">Modo vendedor</div><div class="settings-sub" data-i18n="seller_sub">Vender o seu conteúdo na vitrine</div></div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div>
+          <div class="settings-item clickable" onclick="toggleSecurityForm()">
+            <div class="settings-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+            <div class="settings-text"><div class="settings-title" data-i18n="security_title">Segurança</div><div class="settings-sub" data-i18n="security_sub">Palavra-passe e sessões</div></div>
+            <svg class="chevron" id="securityChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="security-form" id="securityForm">
+            <span class="field-label" data-i18n="security_current_label">Palavra-passe atual</span>
+            <input type="password" id="secCurrent" placeholder="••••••••" autocomplete="current-password">
+            <span class="field-label" data-i18n="security_new_label">Nova palavra-passe</span>
+            <input type="password" id="secNew" placeholder="••••••••" autocomplete="new-password">
+            <span class="field-label" data-i18n="security_confirm_label">Confirmar nova palavra-passe</span>
+            <input type="password" id="secConfirm" placeholder="••••••••" autocomplete="new-password">
+            <button class="btn btn-gold" onclick="submitPasswordChange()" data-i18n="security_submit">Atualizar palavra-passe</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="logout-btn" onclick="logoutUser()" data-i18n="logout">Sair da conta</button>
+    </div>
+  </section>
+
+  </div><!-- /.app-scroll -->
+
+  <nav class="tabbar">
+    <button class="tab active" data-view="home" onclick="showView('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><span data-i18n="nav_home">Início</span></button>
+    <button class="tab" data-view="mercado" onclick="showView('mercado')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-i18n="nav_market">Mercado</span></button>
+    <button class="tab" data-view="comunidade" onclick="showView('comunidade')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.05 5A5 5 0 0119 8.95M15.05 1A9 9 0 0123 8.95M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg><span data-i18n="nav_community">Comunidade</span></button>
+    <button class="tab" data-view="perfil" onclick="showView('perfil')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg><span data-i18n="nav_profile">Perfil</span></button>
+  </nav>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="authModal">
+  <div class="auth-card">
+    <div class="auth-title" id="authTitle" data-i18n="auth_title">Inscrever-se</div>
+    <div class="auth-sub" data-i18n="auth_sub">Crie a sua conta com email e palavra-passe, ou entre se já tiver uma.</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabSignup" onclick="setAuthMode('signup')" data-i18n="auth_tab_signup">Criar conta</button>
+      <button class="auth-tab" id="tabLogin" onclick="setAuthMode('login')" data-i18n="auth_tab_login">Entrar</button>
+    </div>
+    <div id="authRefNote" class="auth-ref-note" style="display:none;"></div>
+    <span class="field-label" data-i18n="auth_email_label">Email</span>
+    <input type="email" id="authEmail" placeholder="[email protected]" autocomplete="email">
+    <span class="field-label" data-i18n="auth_password_label">Palavra-passe</span>
+    <input type="password" id="authPassword" placeholder="••••••••" autocomplete="new-password">
+    <span class="field-label" id="authConfirmLabel" data-i18n="auth_confirm_label">Confirmar palavra-passe</span>
+    <input type="password" id="authConfirmPassword" placeholder="••••••••" autocomplete="new-password">
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-ghost" onclick="closeAuth()" data-i18n="auth_cancel">Cancelar</button>
+      <button class="btn btn-gold" id="authSubmitBtn" onclick="submitAuth()" data-i18n="auth_submit_signup">Criar conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE VIEWER -->
+<div id="imageViewerOverlay">
+  <div class="image-viewer-container">
+    <div class="image-viewer-content">
+      <button class="image-viewer-close" onclick="closeImageViewer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
+      <img id="imageViewerImg" src="" alt="">
+    </div>
+  </div>
+</div>
+
+<div id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg"></span></div>
+
+<!-- ===== FIREBASE (opcional — ver instruções no topo do <script> principal) ===== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+/* =====================================================================
+   CONFIGURAÇÃO DO FIREBASE
+   ---------------------------------------------------------------------
+   1. Crie um projeto em https://console.firebase.google.com
+   2. Ative "Authentication" > método Email/Palavra-passe
+   3. Ative "Firestore Database"
+   4. Copie as chaves do seu projeto (Definições do projeto > SDK) e
+      cole-as aqui em baixo, substituindo os valores de exemplo.
+   ===== COLE AQUI AS SUAS CHAVES REAIS DO FIREBASE (mantendo o formato compat/v10.12.2 já usado nos <script> acima) =====
+   Enquanto isto não for preenchido, a vitrine funciona sozinha em
+   "modo local" (guarda tudo no localStorage do navegador) para que
+   possa continuar a testar tudo sem precisar de backend já.
+   ATENÇÃO: o modo local NÃO é seguro (a palavra-passe fica guardada
+   em texto simples no próprio navegador) — serve só para demonstração.
+   Assim que colocar as chaves reais, tudo passa a usar o Firebase.
+===================================================================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBv9ccmDC28NOnrCDWZpz56Omqb_kLPy8A",
+  authDomain: "iberdrola2016-188ba.firebaseapp.com",
+  projectId: "iberdrola2016-188ba",
+  storageBucket: "iberdrola2016-188ba.firebasestorage.app",
+  messagingSenderId: "183090839430",
+  appId: "1:183090839430:web:a45a5af2f505a422b93607"
+};
+
+let auth = null, dbFire = null, firebaseReady = false;
+try{
+  if(window.firebase && firebaseConfig.apiKey && firebaseConfig.apiKey !== "SUA_API_KEY_AQUI"){
+    firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    dbFire = firebase.firestore();
+    firebaseReady = true;
+  }
+}catch(e){ console.warn('Firebase não inicializado — a usar modo local.', e); }
+console.log(firebaseReady ? '[Vitrine] Ligado ao Firebase.' : '[Vitrine] Modo local (sem Firebase configurado).');
+
+/* ================= TRADUÇÕES ================= */
+const TR = {
+  pt:{
+    splash_label:"a carregar vitrine",
+    tagline_eyebrow:"Bem-vindo(a)",
+    hero_title:"O seu conteúdo, <em>à sua maneira.</em>",
+    hero_sub:"Compre Grupos links de whatsapp e telegram, vazados CP vídeos e acesso a grupos exclusivos. Ou torne-se vendedor e comece a divulgar o seu próprio trabalho.",
+    kicker_featured:"Em destaque", title_featured:"Selecionados para si",
+    banner1_title:"Torne-se vendedor", banner1_sub:"Venda o seu conteúdo dentro da própria vitrine",
+    banner2_title:"Comunidade", banner2_sub:"Grupos oficiais no WhatsApp e Telegram",
+    nav_home:"Início", nav_market:"Mercado", nav_community:"Comunidade", nav_profile:"Perfil",
+    kicker_market:"Mercado", title_market:"Tudo à venda",
+    filter_all:"Tudo", filter_photos:"Fotos", filter_videos:"Vídeos", filter_groups:"Grupos WhatsApp", filter_products:"Produtos",
+    load_more:"Ver mais", ad_slot:"ESPAÇO PUBLICITÁRIO · anúncio patrocinado",
+    kicker_community:"Comunidade", title_community:"Grupos oficiais",
+    comm_wpp_title:"Grupo da Comunidade — WhatsApp", comm_wpp_sub:"Avisos e novidades · aberto a todos",
+    comm_tg_title:"Canal do Telegram", comm_tg_sub:"Publicações e catálogo",
+    comm_manager_title:"Contactar o Gerente", comm_manager_sub:"Suporte direto via WhatsApp",
+    comm_note:"Para comprar qualquer tipo de grupo entre em contacto, para postar no site seus artigos entre em contacto, temos todo tipo de grupo e conteúdos. Convide e tenha conteúdos sem comprar — desbloqueie grátis.",
+    comm_social_label:"Siga-nos nas redes sociais",
+    kicker_profile:"Perfil", title_profile:"A sua conta",
+    guest_title:"Está a navegar como visitante",
+    guest_sub:"Conteúdo totalmente desbloqueado para todos. Inscreva-se para ter vitrine própria e acesso à comunidade exclusiva.",
+    guest_cta:"Inscrever-se com email",
+    stat_points:"Pontos", stat_online:"Vezes online", stat_balance:"Saldo (Kz)",
+    invite_title:"Convide e ganhe",
+    invite_sub:"Cada pessoa que se inscrever com o seu link soma 50 pontos à sua conta.",
+    invite_copy:"Copiar link", invite_count_label:"Pessoas convidadas",
+    pref_title:"Preferências", pref_theme_label:"Aparência",
+    pref_theme_toggle_label:"Ativar modo claro",
+    theme_dark:"Escuro", theme_light:"Azul claro",
+    pref_layout_label:"Disposição do conteúdo", layout_grid:"Lado a lado", layout_list:"Empilhado",
+    pref_lang_label:"Idioma",
+    seller_title:"Modo vendedor", seller_sub:"Vender o seu conteúdo na vitrine",
+    history_title:"Histórico de compras", history_sub:"Ver tudo o que já comprou",
+    security_title:"Segurança", security_sub:"Palavra-passe e sessões",
+    security_current_label:"Palavra-passe atual", security_new_label:"Nova palavra-passe",
+    security_confirm_label:"Confirmar nova palavra-passe", security_submit:"Atualizar palavra-passe",
+    logout:"Sair da conta",
+    auth_title_signup:"Inscrever-se", auth_title_login:"Entrar",
+    auth_sub:"Crie a sua conta com email e palavra-passe, ou entre se já tiver uma.",
+    auth_tab_signup:"Criar conta", auth_tab_login:"Entrar",
+    auth_email_label:"Email", auth_password_label:"Palavra-passe", auth_confirm_label:"Confirmar palavra-passe",
+    auth_cancel:"Cancelar", auth_submit_signup:"Criar conta", auth_submit_login:"Entrar",
+    auth_ref_note:"Foi convidado(a) com o código ",
+    ref_banner:"Foi convidado(a) para a Vitrine! Crie a sua conta para desbloquear o acesso.",
+    toast_more_items:"Mais itens carregados", toast_account_created:"Conta criada — bem-vindo(a)!",
+    toast_login_ok:"Sessão iniciada — bem-vindo(a) de volta!",
+    toast_seller_on:"Modo vendedor ativado", toast_seller_off:"Modo vendedor desativado",
+    toast_invalid_email:"Indique um email válido", toast_short_password:"A palavra-passe deve ter pelo menos 6 caracteres",
+    toast_password_mismatch:"As palavras-passe não coincidem", toast_password_updated:"Palavra-passe atualizada com sucesso",
+    toast_wrong_password:"Palavra-passe atual incorreta", toast_email_exists:"Este email já tem conta — tente entrar",
+    toast_email_not_found:"Não encontrámos conta com este email", toast_link_copied:"Link copiado!",
+    toast_generic_error:"Não foi possível concluir. Tente novamente.", toast_logged_out:"Sessão terminada",
+    toast_referral_credited:"Convite validado — 50 pontos creditados!"
+  },
+  en:{
+    splash_label:"loading vitrine",
+    tagline_eyebrow:"Welcome",
+    hero_title:"Your content, <em>your way.</em>",
+    hero_sub:"Buy photos, videos and access to exclusive groups. Or become a seller and start promoting your own work.",
+    kicker_featured:"Featured", title_featured:"Picked for you",
+    banner1_title:"Become a seller", banner1_sub:"Sell your content right inside the storefront",
+    banner2_title:"Community", banner2_sub:"Official groups on WhatsApp and Telegram",
+    nav_home:"Home", nav_market:"Market", nav_community:"Community", nav_profile:"Profile",
+    kicker_market:"Market", title_market:"Everything for sale",
+    filter_all:"All", filter_photos:"Photos", filter_videos:"Videos", filter_groups:"WhatsApp Groups", filter_products:"Products",
+    load_more:"Load more", ad_slot:"AD SPACE · sponsored content",
+    kicker_community:"Community", title_community:"Official groups",
+    comm_wpp_title:"Community Group — WhatsApp", comm_wpp_sub:"News and updates · open to everyone",
+    comm_tg_title:"Telegram Channel", comm_tg_sub:"Posts and catalog",
+    comm_manager_title:"Contact the Manager", comm_manager_sub:"Direct support via WhatsApp",
+    comm_note:"To buy any type of group, get in touch. To post your content on the site, get in touch. We have every type of group and content. Invite friends and get content without paying — unlock it for free.",
+    comm_social_label:"Follow us on social media",
+    kicker_profile:"Profile", title_profile:"Your account",
+    guest_title:"You're browsing as a guest",
+    guest_sub:"Content fully unlocked for everyone. Sign up to get your own storefront and access to the exclusive community.",
+    guest_cta:"Sign up with email",
+    stat_points:"Points", stat_online:"Times online", stat_balance:"Balance (Kz)",
+    invite_title:"Invite and earn",
+    invite_sub:"Everyone who signs up with your link adds 50 points to your account.",
+    invite_copy:"Copy link", invite_count_label:"People invited",
+    pref_title:"Preferences", pref_theme_label:"Appearance",
+    pref_theme_toggle_label:"Enable light mode",
+    theme_dark:"Dark", theme_light:"Light blue",
+    pref_layout_label:"Content layout", layout_grid:"Side by side", layout_list:"Stacked",
+    pref_lang_label:"Language",
+    seller_title:"Seller mode", seller_sub:"Sell your content on the storefront",
+    history_title:"Purchase history", history_sub:"See everything you've bought",
+    security_title:"Security", security_sub:"Password and sessions",
+    security_current_label:"Current password", security_new_label:"New password",
+    security_confirm_label:"Confirm new password", security_submit:"Update password",
+    logout:"Log out",
+    auth_title_signup:"Sign up", auth_title_login:"Log in",
+    auth_sub:"Create your account with email and password, or log in if you already have one.",
+    auth_tab_signup:"Sign up", auth_tab_login:"Log in",
+    auth_email_label:"Email", auth_password_label:"Password", auth_confirm_label:"Confirm password",
+    auth_cancel:"Cancel", auth_submit_signup:"Create account", auth_submit_login:"Log in",
+    auth_ref_note:"You were invited with code ",
+    ref_banner:"You've been invited to Vitrine! Create your account to unlock access.",
+    toast_more_items:"More items loaded", toast_account_created:"Account created — welcome!",
+    toast_login_ok:"Signed in — welcome back!",
+    toast_seller_on:"Seller mode enabled", toast_seller_off:"Seller mode disabled",
+    toast_invalid_email:"Enter a valid email", toast_short_password:"Password must be at least 6 characters",
+    toast_password_mismatch:"Passwords don't match", toast_password_updated:"Password updated successfully",
+    toast_wrong_password:"Current password is incorrect", toast_email_exists:"This email already has an account — try logging in",
+    toast_email_not_found:"No account found with this email", toast_link_copied:"Link copied!",
+    toast_generic_error:"Couldn't complete this. Please try again.", toast_logged_out:"Signed out",
+    toast_referral_credited:"Referral validated — 50 points credited!"
+  },
+  es:{
+    splash_label:"cargando vitrine",
+    tagline_eyebrow:"Bienvenido(a)",
+    hero_title:"Su contenido, <em>a su manera.</em>",
+    hero_sub:"Compre fotos, vídeos y acceso a grupos exclusivos. O conviértase en vendedor y empiece a promocionar su propio trabajo.",
+    kicker_featured:"Destacados", title_featured:"Seleccionados para usted",
+    banner1_title:"Conviértase en vendedor", banner1_sub:"Venda su contenido dentro de la propia vitrine",
+    banner2_title:"Comunidad", banner2_sub:"Grupos oficiales en WhatsApp y Telegram",
+    nav_home:"Inicio", nav_market:"Mercado", nav_community:"Comunidad", nav_profile:"Perfil",
+    kicker_market:"Mercado", title_market:"Todo a la venta",
+    filter_all:"Todo", filter_photos:"Fotos", filter_videos:"Vídeos", filter_groups:"Grupos WhatsApp", filter_products:"Productos",
+    load_more:"Ver más", ad_slot:"ESPACIO PUBLICITARIO · anuncio patrocinado",
+    kicker_community:"Comunidad", title_community:"Grupos oficiales",
+    comm_wpp_title:"Grupo de la Comunidad — WhatsApp", comm_wpp_sub:"Avisos y novedades · abierto a todos",
+    comm_tg_title:"Canal de Telegram", comm_tg_sub:"Publicaciones y catálogo",
+    comm_manager_title:"Contactar al Gerente", comm_manager_sub:"Soporte directo vía WhatsApp",
+    comm_note:"Para comprar cualquier tipo de grupo, contáctenos. Para publicar su contenido en el sitio, contáctenos. Tenemos todo tipo de grupos y contenidos. Invite y obtenga contenido sin comprar — desbloquéelo gratis.",
+    comm_social_label:"Síganos en las redes sociales",
+    kicker_profile:"Perfil", title_profile:"Su cuenta",
+    guest_title:"Está navegando como invitado",
+    guest_sub:"Contenido totalmente desbloqueado para todos. Regístrese para tener su propia vitrine y acceso a la comunidad exclusiva.",
+    guest_cta:"Registrarse con email",
+    stat_points:"Puntos", stat_online:"Veces en línea", stat_balance:"Saldo (Kz)",
+    invite_title:"Invite y gane",
+    invite_sub:"Cada persona que se registre con su enlace suma 50 puntos a su cuenta.",
+    invite_copy:"Copiar enlace", invite_count_label:"Personas invitadas",
+    pref_title:"Preferencias", pref_theme_label:"Apariencia",
+    pref_theme_toggle_label:"Activar modo claro",
+    theme_dark:"Oscuro", theme_light:"Azul claro",
+    pref_layout_label:"Disposición del contenido", layout_grid:"Uno al lado del otro", layout_list:"Apilado",
+    pref_lang_label:"Idioma",
+    seller_title:"Modo vendedor", seller_sub:"Vender su contenido en la vitrine",
+    history_title:"Historial de compras", history_sub:"Ver todo lo que ya compró",
+    security_title:"Seguridad", security_sub:"Contraseña y sesiones",
+    security_current_label:"Contraseña actual", security_new_label:"Nueva contraseña",
+    security_confirm_label:"Confirmar nueva contraseña", security_submit:"Actualizar contraseña",
+    logout:"Cerrar sesión",
+    auth_title_signup:"Registrarse", auth_title_login:"Entrar",
+    auth_sub:"Cree su cuenta con email y contraseña, o entre si ya tiene una.",
+    auth_tab_signup:"Crear cuenta", auth_tab_login:"Entrar",
+    auth_email_label:"Email", auth_password_label:"Contraseña", auth_confirm_label:"Confirmar contraseña",
+    auth_cancel:"Cancelar", auth_submit_signup:"Crear cuenta", auth_submit_login:"Entrar",
+    auth_ref_note:"Fue invitado(a) con el código ",
+    ref_banner:"¡Fue invitado(a) a Vitrine! Cree su cuenta para desbloquear el acceso.",
+    toast_more_items:"Más artículos cargados", toast_account_created:"Cuenta creada — ¡bienvenido(a)!",
+    toast_login_ok:"Sesión iniciada — ¡bienvenido(a) de nuevo!",
+    toast_seller_on:"Modo vendedor activado", toast_seller_off:"Modo vendedor desactivado",
+    toast_invalid_email:"Indique un email válido", toast_short_password:"La contraseña debe tener al menos 6 caracteres",
+    toast_password_mismatch:"Las contraseñas no coinciden", toast_password_updated:"Contraseña actualizada con éxito",
+    toast_wrong_password:"Contraseña actual incorrecta", toast_email_exists:"Este email ya tiene cuenta — intente entrar",
+    toast_email_not_found:"No encontramos cuenta con este email", toast_link_copied:"¡Enlace copiado!",
+    toast_generic_error:"No se pudo completar. Intente de nuevo.", toast_logged_out:"Sesión terminada",
+    toast_referral_credited:"¡Invitación validada — 50 puntos acreditados!"
+  },
+  zh:{
+    splash_label:"正在加载 Vitrine",
+    tagline_eyebrow:"欢迎",
+    hero_title:"您的内容，<em>由您做主。</em>",
+    hero_sub:"购买照片、视频以及专属群组的访问权限。或者成为卖家，开始推广您自己的作品。",
+    kicker_featured:"精选", title_featured:"为您推荐",
+    banner1_title:"成为卖家", banner1_sub:"直接在本站内销售您的内容",
+    banner2_title:"社区", banner2_sub:"WhatsApp 和 Telegram 官方群组",
+    nav_home:"首页", nav_market:"市场", nav_community:"社区", nav_profile:"我的",
+    kicker_market:"市场", title_market:"全部商品",
+    filter_all:"全部", filter_photos:"照片", filter_videos:"视频", filter_groups:"WhatsApp 群组", filter_products:"产品",
+    load_more:"加载更多", ad_slot:"广告位 · 赞助内容",
+    kicker_community:"社区", title_community:"官方群组",
+    comm_wpp_title:"社区群组 — WhatsApp", comm_wpp_sub:"公告与最新消息 · 对所有人开放",
+    comm_tg_title:"Telegram 频道", comm_tg_sub:"发布内容与目录",
+    comm_manager_title:"联系管理员", comm_manager_sub:"通过 WhatsApp 直接支持",
+    comm_note:"如需购买任何类型的群组，请联系我们；如需在网站上发布您的作品，也请联系我们，我们提供各类群组和内容。邀请好友即可免费获得内容 — 无需购买即可解锁。",
+    comm_social_label:"关注我们的社交媒体",
+    kicker_profile:"我的", title_profile:"您的账户",
+    guest_title:"您正在以访客身份浏览",
+    guest_sub:"所有人都可完全解锁内容。注册后即可拥有自己的展示页并加入专属社区。",
+    guest_cta:"使用邮箱注册",
+    stat_points:"积分", stat_online:"在线次数", stat_balance:"余额 (Kz)",
+    invite_title:"邀请赢积分",
+    invite_sub:"每有一人使用您的链接注册，您的账户将获得 50 积分。",
+    invite_copy:"复制链接", invite_count_label:"已邀请人数",
+    pref_title:"偏好设置", pref_theme_label:"外观",
+    pref_theme_toggle_label:"启用浅色模式",
+    theme_dark:"深色", theme_light:"浅蓝色",
+    pref_layout_label:"内容排列方式", layout_grid:"并排显示", layout_list:"堆叠显示",
+    pref_lang_label:"语言",
+    seller_title:"卖家模式", seller_sub:"在本站销售您的内容",
+    history_title:"购买记录", history_sub:"查看您购买过的所有内容",
+    security_title:"安全设置", security_sub:"密码与登录会话",
+    security_current_label:"当前密码", security_new_label:"新密码",
+    security_confirm_label:"确认新密码", security_submit:"更新密码",
+    logout:"退出登录",
+    auth_title_signup:"注册", auth_title_login:"登录",
+    auth_sub:"使用邮箱和密码创建账户，或使用已有账户登录。",
+    auth_tab_signup:"创建账户", auth_tab_login:"登录",
+    auth_email_label:"邮箱", auth_password_label:"密码", auth_confirm_label:"确认密码",
+    auth_cancel:"取消", auth_submit_signup:"创建账户", auth_submit_login:"登录",
+    auth_ref_note:"您通过邀请码受邀加入：",
+    ref_banner:"您已受邀加入 Vitrine！创建账户即可解锁访问权限。",
+    toast_more_items:"已加载更多内容", toast_account_created:"账户创建成功 — 欢迎！",
+    toast_login_ok:"登录成功 — 欢迎回来！",
+    toast_seller_on:"卖家模式已开启", toast_seller_off:"卖家模式已关闭",
+    toast_invalid_email:"请输入有效的邮箱地址", toast_short_password:"密码长度至少为 6 个字符",
+    toast_password_mismatch:"两次输入的密码不一致", toast_password_updated:"密码更新成功",
+    toast_wrong_password:"当前密码不正确", toast_email_exists:"该邮箱已注册 — 请尝试登录",
+    toast_email_not_found:"未找到使用该邮箱的账户", toast_link_copied:"链接已复制！",
+    toast_generic_error:"操作未能完成，请重试。", toast_logged_out:"已退出登录",
+    toast_referral_credited:"邀请已生效 — 已获得 50 积分！"
+  }
+};
+function t(key){ return (TR[currentLang] && TR[currentLang][key]) || TR.pt[key] || key; }
+
+/* ================= ÍCONES DAS PREFERÊNCIAS ================= */
+const ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+const ICON_LAYOUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>';
+const ICON_GLOBE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>';
+
+/* ================= ESTADO ================= */
+const TYPE_ICONS = {
+  foto: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  video: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>',
+  grupo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>',
+  produto: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>'
+};
+const CATALOG = [
+  {id:1, name:"Grupos  'no off' — Mais de 500 vídeos", seller:"@Bom preço", price:0, type:"foto", img:"https://i.postimg.cc/Bn8VXvQq/20260701-230229.jpg", ca:"#3A2A50", cb:"#1A1522"},
+  {id:2, name:"Vídeo exclusivo · 12min", seller:"@Qualquer valor basta", price:0, type:"video", img:"https://i.postimg.cc/9Fwd9wTT/20260701-225928.jpg", ca:"#4A2432", cb:"#1A1522"},
+  {id:3, name:"Grupos do Telegram", seller:"@Barato mano", price:0, type:"grupo", img:"https://i.postimg.cc/BbSS2Vm3/photo-2023-12-22-05-09-24.jpg", ca:"#25443A", cb:"#1A1522"},
+  {id:4, name:"Compra teu acesso NETFLIX'VIP'", seller:"@Whatsapp 945561341", price:0, type:"foto", img:"https://i.postimg.cc/FK3bdqwC/netflixukpricing.webp", ca:"#2A3A50", cb:"#1A1522"},
+  {id:5, name:"Sessão ao vivo · gravação", seller:"@Bom preço", price:0, type:"video", img:"https://i.postimg.cc/cJv8nrvH/photo-2025-06-04-19-04-45.jpg", ca:"#4A2438", cb:"#1A1522"},
+  {id:6, name:"Grupos vip do Whtsapp", seller:"@Barato", price:0, type:"grupo", img:"https://i.postimg.cc/sXpxYSyK/photo-2023-12-22-05-09-25.jpg", ca:"#3A2444", cb:"#1A1522"},
+  {id:7, name:"Gostosa do musculo", seller:"@Whatsapp 945561341", price:10000, type:"produto", img:"https://i.postimg.cc/g0tQgBcw/photo-2025-05-18-12-37-32.jpg", ca:"#2A4438", cb:"#1A1522"},
+  {id:8, name:"PutaBOA de 'Viana'", seller:"@Cafetao whatsapp 945561341", price:10000, type:"produto", img:"https://i.postimg.cc/t4PKCz5C/photo-2025-05-20-17-35-44.jpg", ca:"#443A2A", cb:"#1A1522"},
+];
+
+const FILTER_DEFS = [
+  {type:"all", key:"filter_all"}, {type:"foto", key:"filter_photos"}, {type:"video", key:"filter_videos"},
+  {type:"grupo", key:"filter_groups"}, {type:"produto", key:"filter_products"}
+];
+
+/* =====================================================================
+   HERO — CARROSSEL DE MÍDIA
+   ---------------------------------------------------------------------
+   Edite este array para trocar as mídias do carrossel do Hero.
+   - type: 'image'  -> para foto ou gif (use um .gif ou .jpg/.png normal)
+   - type: 'video'  -> para vídeo .mp4 (toca em loop mudo automaticamente,
+                       aparece SEMPRE completo, sem cortar bordas)
+   - src: a URL do ficheiro (pode ser um link direto para o seu .mp4/.jpg/.gif)
+   Pode colocar tantos itens quantos quiser (recomendado 4), cada um
+   pode ser de um tipo diferente (imagem, gif ou vídeo).
+   IMPORTANTE: se o src termina em .mp4/.webm/.mov, marque type: 'video'.
+   Se marcar como 'image' um ficheiro de vídeo, ele NÃO vai reproduzir.
+===================================================================== */
+const HERO_MEDIA_ITEMS = [
+  { type: 'video', src: 'https://quiet-crisp-f06bf6.netlify.app/public/1.mp4' },
+  { type: 'video', src: 'https://quiet-crisp-f06bf6.netlify.app/public/2.mp4' },
+  { type: 'video', src: 'https://quiet-crisp-f06bf6.netlify.app/public/5.mp4' },
+  { type: 'video', src: 'https://quiet-crisp-f06bf6.netlify.app/public/4.mp4' }
+];
+const HERO_TEXT_DURATION = 15000;   // 15s — tempo do texto de boas-vindas
+const HERO_SLIDE_DURATION = 15000;  // 15s — tempo de cada item do carrossel
+
+let currentLang = localStorage.getItem('vitrine_pref_lang') || 'pt';
+let currentTheme = localStorage.getItem('vitrine_pref_theme') || 'dark';
+let currentLayout = localStorage.getItem('vitrine_pref_layout') || 'grid';
+let activeFilterType = "all";
+let marketShown = 4;
+let currentUser = null;   // { uid, email, points, onlineCount, invitesCount, balance, referralCode, sellerMode, ... }
+let authMode = 'signup';
+let unsubscribeUserDoc = null;
+const refCodeFromURL = new URLSearchParams(location.search).get('ref');
+const SELLER_WHATSAPP_NUMBER = "244945561341"; // +244 94 556 1341
+
+const fmt = v => Number(v||0).toLocaleString('pt-AO') + ' Kz';
+
+/* ================= SPLASH ================= */
+window.addEventListener('load', () => {
+  const fill = document.getElementById('splashProgress');
+  // arranca a animação da barra no próximo frame para garantir a transição
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => { if(fill) fill.style.width = '100%'; });
+  });
+  // loading e barra terminam juntos, exatamente aos 5 segundos
+  setTimeout(() => document.getElementById('splash').classList.add('hide'), 5000);
+});
+
+/* ================= NAV ================= */
+function showView(name){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.view === name));
+  document.querySelector('.app-scroll').scrollTop = 0;
+}
+
+/* ================= HERO — CICLO TEXTO / CARROSSEL ================= */
+let heroOrder = [];          // ordem (índices) embaralhada dos itens
+let heroCurrentIndex = 0;    // posição atual dentro de heroOrder
+let heroAutoTimer = null;    // timer do avanço automático
+let heroTextTimer = null;    // timer da fase de texto (15s)
+let heroCarouselOpen = false;
+
+function heroShuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function heroStartTextPhase(){
+  heroCarouselOpen = false;
+  clearTimeout(heroTextTimer);
+  clearTimeout(heroAutoTimer);
+  document.getElementById('heroText').classList.remove('fading');
+  document.getElementById('heroCarousel').classList.remove('show');
+  // Para qualquer vídeo a tocar
+  document.querySelectorAll('#heroCarouselSlides video').forEach(v => { try{ v.pause(); }catch(e){} });
+  heroTextTimer = setTimeout(heroOpenCarousel, HERO_TEXT_DURATION);
+}
+
+function heroOpenCarousel(){
+  heroCarouselOpen = true;
+  // embaralha a ordem dos itens a cada novo início do carrossel
+  heroOrder = heroShuffle(HERO_MEDIA_ITEMS.map((_, i) => i));
+  heroCurrentIndex = 0;
+  heroRenderSlides();
+  document.getElementById('heroText').classList.add('fading');
+  document.getElementById('heroCarousel').classList.add('show');
+  heroShowSlide(0, true);
+  heroScheduleAutoAdvance();
+}
+
+function heroRenderSlides(){
+  const wrap = document.getElementById('heroCarouselSlides');
+  wrap.innerHTML = heroOrder.map((itemIdx, pos) => {
+    const item = HERO_MEDIA_ITEMS[itemIdx];
+    const media = item.type === 'video'
+      ? `<video src="${item.src}" playsinline muted loop autoplay preload="auto"></video>`
+      : `<img src="${item.src}" alt="">`;
+    return `<div class="hero-carousel-slide" data-pos="${pos}">${media}</div>`;
+  }).join('');
+  heroRenderDots();
+}
+
+function heroRenderDots(){
+  const dotsWrap = document.getElementById('heroCarouselDots');
+  dotsWrap.innerHTML = heroOrder.map((_, pos) =>
+    `<span class="hero-carousel-dot ${pos === heroCurrentIndex ? 'active' : ''}"></span>`).join('');
+}
+
+function heroShowSlide(pos, isFirst){
+  const slides = document.querySelectorAll('#heroCarouselSlides .hero-carousel-slide');
+  slides.forEach(s => s.classList.toggle('active', Number(s.dataset.pos) === pos));
+  heroCurrentIndex = pos;
+  heroRenderDots();
+  // (re)inicia vídeo do slide ativo, pausa os outros
+  slides.forEach(s => {
+    const v = s.querySelector('video');
+    if(!v) return;
+    if(Number(s.dataset.pos) === pos){ try{ v.currentTime = 0; v.play(); }catch(e){} }
+    else { try{ v.pause(); }catch(e){} }
+  });
+}
+
+function heroScheduleAutoAdvance(){
+  clearTimeout(heroAutoTimer);
+  heroAutoTimer = setTimeout(() => {
+    heroAdvance(1);
+  }, HERO_SLIDE_DURATION);
+}
+
+function heroAdvance(direction){
+  const total = heroOrder.length;
+  let next = (heroCurrentIndex + direction) % total;
+  if(next < 0) next += total;
+  heroShowSlide(next);
+  heroScheduleAutoAdvance();
+}
+
+function heroCarouselNav(direction){
+  if(!heroCarouselOpen) return;
+  heroAdvance(direction);
+}
+
+function heroCloseCarousel(){
+  heroStartTextPhase();
+}
+
+/* swipe (touch) no carrossel */
+(function initHeroSwipe(){
+  let startX = 0, startY = 0, tracking = false;
+  document.addEventListener('touchstart', e => {
+    const carousel = document.getElementById('heroCarousel');
+    if(!carousel || !carousel.classList.contains('show')) return;
+    if(!carousel.contains(e.target)) return;
+    tracking = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', e => {
+    if(!tracking) return;
+    tracking = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
+      heroCarouselNav(dx < 0 ? 1 : -1);
+    }
+  }, {passive:true});
+})();
+
+/* ================= PULL-TO-REFRESH (arrastar a tela para baixo recarrega a página) ================= */
+(function initPullToRefresh(){
+  const scrollEl = document.getElementById('appScroll');
+  const pr = document.getElementById('pullRefresh');
+  const THRESHOLD = 78; // px necessários para soltar e recarregar
+  let startY = 0, pulling = false, triggered = false;
+
+  scrollEl.addEventListener('touchstart', e => {
+    if(scrollEl.scrollTop <= 0){
+      startY = e.touches[0].clientY;
+      pulling = true;
+      triggered = false;
+    } else {
+      pulling = false;
+    }
+  }, {passive:true});
+
+  scrollEl.addEventListener('touchmove', e => {
+    if(!pulling) return;
+    const diff = e.touches[0].clientY - startY;
+    if(diff > 0 && scrollEl.scrollTop <= 0){
+      const h = Math.min(diff * 0.5, 90);
+      pr.style.height = h + 'px';
+      pr.classList.toggle('spin', h >= THRESHOLD);
+      document.getElementById('pullRefreshLabel').textContent = h >= THRESHOLD ? 'Solte para atualizar' : 'Puxe para atualizar';
+      if(h >= THRESHOLD) triggered = true;
+    }
+  }, {passive:true});
+
+  scrollEl.addEventListener('touchend', () => {
+    if(!pulling) return;
+    pulling = false;
+    if(triggered){
+      pr.style.height = '48px';
+      pr.classList.add('spin');
+      document.getElementById('pullRefreshLabel').textContent = 'A atualizar...';
+      setTimeout(() => location.reload(), 200);
+    } else {
+      pr.style.height = '0px';
+      pr.classList.remove('spin');
+    }
+  }, {passive:true});
+})();
+
+/* ================= CATÁLOGO ================= */
+function cardHTML(item){
+  const icon = TYPE_ICONS[item.type] || '';
+  return `
+  <div class="item-card" onclick="openImageViewer('${item.img}')">
+    <div class="item-thumb" style="--card-a:${item.ca};--card-b:${item.cb};">
+      <img src="${item.img}" alt="${item.name}" loading="lazy">
+      <span class="type-badge">${icon}</span>
+    </div>
+    <div class="item-body">
+      <div class="item-name">${item.name}</div>
+      <div class="item-seller">${item.seller}</div>
+      <div class="item-row">
+        <span class="item-price mono">${fmt(item.price)}</span>
+      </div>
+    </div>
+  </div>`;
+}
+function renderFeatured(){
+  const shuffled = [...CATALOG].sort(() => Math.random() - 0.5).slice(0, 6);
+  document.getElementById('featuredGrid').innerHTML = shuffled.map(i => cardHTML(i)).join('');
+}
+function renderFilters(){
+  document.getElementById('filterRow').innerHTML = FILTER_DEFS.map(f =>
+    `<button class="filter-chip ${f.type===activeFilterType?'active':''}" onclick="setFilter('${f.type}')">${t(f.key)}</button>`).join('');
+}
+function setFilter(type){ activeFilterType = type; marketShown = 4; renderFilters(); renderMarket(); }
+function filteredCatalog(){
+  return activeFilterType === "all" ? CATALOG : CATALOG.filter(i => i.type === activeFilterType);
+}
+function renderMarket(){
+  const items = filteredCatalog().slice(0, marketShown);
+  document.getElementById('marketGrid').innerHTML = items.map(i => cardHTML(i)).join('');
+  updateLoadMoreVisibility();
+}
+function updateLoadMoreVisibility(){
+  const btn = document.getElementById('loadMoreBtn');
+  // "Ver mais" só aparece no filtro "Tudo". Nos filtros Fotos, Vídeos,
+  // Grupos WhatsApp e Produtos o botão fica escondido automaticamente.
+  const shouldShow = activeFilterType === 'all' && marketShown < filteredCatalog().length;
+  btn.style.display = shouldShow ? 'block' : 'none';
+}
+function loadMore(){ marketShown += 4; renderMarket(); sendToast(t('toast_more_items')); }
+
+/* ================= IMAGE VIEWER ================= */
+function openImageViewer(src){
+  document.getElementById('imageViewerImg').src = src || CATALOG[0].img;
+  document.getElementById('imageViewerOverlay').classList.add('open');
+}
+function closeImageViewer(){ document.getElementById('imageViewerOverlay').classList.remove('open'); }
+
+/* ================= PREFERÊNCIAS (linhas simples: aparência, disposição, idioma) ================= */
+function prefRowsHTML(){
+  return `
+  <div class="pref-row">
+    <div class="pref-icon">${ICON_SUN}</div>
+    <div class="pref-row-title">${t('pref_theme_toggle_label')}</div>
+    <button class="toggle ${currentTheme==='light'?'on':''}" onclick="toggleTheme()"></button>
+  </div>
+  <div class="pref-row">
+    <div class="pref-icon">${ICON_LAYOUT}</div>
+    <div class="pref-row-title">${t('pref_layout_label')}</div>
+    <div class="lang-options">
+      <button class="lang-opt ${currentLayout==='grid'?'active':''}" onclick="applyLayout('grid')">${t('layout_grid')}</button>
+      <button class="lang-opt ${currentLayout==='list'?'active':''}" onclick="applyLayout('list')">${t('layout_list')}</button>
+    </div>
+  </div>
+  <div class="pref-row">
+    <div class="pref-icon">${ICON_GLOBE}</div>
+    <div class="pref-row-title">${t('pref_lang_label')}</div>
+    <div class="lang-options">
+      <button class="lang-opt ${currentLang==='pt'?'active':''}" onclick="applyLang('pt')">PT</button>
+      <button class="lang-opt ${currentLang==='en'?'active':''}" onclick="applyLang('en')">EN</button>
+      <button class="lang-opt ${currentLang==='es'?'active':''}" onclick="applyLang('es')">ES</button>
+      <button class="lang-opt ${currentLang==='zh'?'active':''}" onclick="applyLang('zh')">中文</button>
+    </div>
+  </div>`;
+}
+function renderPrefLists(){
+  const a = document.getElementById('prefListIn'); if(a) a.innerHTML = prefRowsHTML();
+  const b = document.getElementById('prefListGuest'); if(b) b.innerHTML = prefRowsHTML();
+}
+
+/* ================= TEMA ================= */
+function applyTheme(theme, persistLocally){
+  currentTheme = theme;
+  document.body.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
+  if(persistLocally !== false) localStorage.setItem('vitrine_pref_theme', theme);
+  renderPrefLists();
+  if(currentUser) saveUserField('theme', theme);
+}
+function toggleTheme(){
+  applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+}
+
+/* ================= LAYOUT ================= */
+function applyLayout(layout, persistLocally){
+  currentLayout = layout;
+  document.body.classList.toggle('layout-list', layout === 'list');
+  if(persistLocally !== false) localStorage.setItem('vitrine_pref_layout', layout);
+  renderPrefLists();
+  if(currentUser) saveUserField('layout', layout);
+}
+
+/* ================= IDIOMA ================= */
+function applyLang(lang, persistLocally){
+  currentLang = lang;
+  document.documentElement.lang = lang === 'pt' ? 'pt-AO' : lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+  if(persistLocally !== false) localStorage.setItem('vitrine_pref_lang', lang);
+  renderFilters(); renderMarket(); renderFeatured();
+  renderPrefLists();
+  updateAuthTexts();
+  if(currentUser) saveUserField('lang', lang);
+}
+
+/* ================= CAMADA DE DADOS (Firebase ou local) ================= */
+const LS_USERS = 'vitrine_demo_users';
+const LS_SESSION = 'vitrine_demo_session';
+function lsGetUsers(){ try{ return JSON.parse(localStorage.getItem(LS_USERS) || '{}'); }catch(e){ return {}; } }
+function lsSaveUsers(u){ localStorage.setItem(LS_USERS, JSON.stringify(u)); }
+
+function newDefaultUserData(email){
+  return {
+    email, points: 0, onlineCount: 1, invitesCount: 0, balance: 0,
+    referralCode: Math.random().toString(36).slice(2,8).toUpperCase(),
+    invitedBy: refCodeFromURL || null, sellerMode: false,
+    theme: currentTheme, layout: currentLayout, lang: currentLang
+  };
+}
+
+async function fbSignUp(email, password){
+  const cred = await auth.createUserWithEmailAndPassword(email, password);
+  const uid = cred.user.uid;
+  const data = newDefaultUserData(email);
+  data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+  data.lastLogin = firebase.firestore.FieldValue.serverTimestamp();
+  await dbFire.collection('users').doc(uid).set(data);
+  if(refCodeFromURL) await creditReferral(refCodeFromURL);
+  return uid;
+}
+async function fbLogin(email, password){
+  const cred = await auth.signInWithEmailAndPassword(email, password);
+  const uid = cred.user.uid;
+  await dbFire.collection('users').doc(uid).update({
+    onlineCount: firebase.firestore.FieldValue.increment(1),
+    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  return uid;
+}
+async function fbChangePassword(current, next){
+  const user = auth.currentUser;
+  const credential = firebase.auth.EmailAuthProvider.credential(user.email, current);
+  await user.reauthenticateWithCredential(credential);
+  await user.updatePassword(next);
+}
+async function fbCreditReferral(refCode){
+  const q = await dbFire.collection('users').where('referralCode', '==', refCode).limit(1).get();
+  if(!q.empty){
+    const doc = q.docs[0];
+    await doc.ref.update({
+      points: firebase.firestore.FieldValue.increment(50),
+      invitesCount: firebase.firestore.FieldValue.increment(1)
+    });
+  }
+}
+function fbSubscribe(uid, cb){
+  return dbFire.collection('users').doc(uid).onSnapshot(doc => { if(doc.exists) cb(doc.data()); });
+}
+async function fbSetField(uid, field, value){
+  await dbFire.collection('users').doc(uid).update({ [field]: value });
+}
+async function fbLogout(){ await auth.signOut(); }
+
+/* --- fallback local (localStorage) --- */
+async function localSignUp(email, password){
+  const users = lsGetUsers();
+  if(users[email]) throw { code: 'EMAIL_EXISTS' };
+  const uid = 'local_' + btoa(unescape(encodeURIComponent(email))).replace(/=/g,'');
+  const data = newDefaultUserData(email);
+  data.uid = uid; data.password = password; data.createdAt = Date.now(); data.lastLogin = Date.now();
+  users[email] = data;
+  lsSaveUsers(users);
+  localStorage.setItem(LS_SESSION, email);
+  if(refCodeFromURL) await localCreditReferral(refCodeFromURL);
+  return uid;
+}
+async function localLogin(email, password){
+  const users = lsGetUsers();
+  const u = users[email];
+  if(!u) throw { code: 'EMAIL_NOT_FOUND' };
+  if(u.password !== password) throw { code: 'WRONG_PASSWORD' };
+  u.onlineCount = (u.onlineCount || 0) + 1;
+  u.lastLogin = Date.now();
+  lsSaveUsers(users);
+  localStorage.setItem(LS_SESSION, email);
+  return u.uid;
+}
+async function localChangePassword(current, next){
+  const email = localStorage.getItem(LS_SESSION);
+  const users = lsGetUsers();
+  const u = users[email];
+  if(!u || u.password !== current) throw { code: 'WRONG_PASSWORD' };
+  u.password = next;
+  lsSaveUsers(users);
+}
+async function localCreditReferral(refCode){
+  const users = lsGetUsers();
+  const email = Object.keys(users).find(e => users[e].referralCode === refCode);
+  if(email){
+    users[email].points = (users[email].points || 0) + 50;
+    users[email].invitesCount = (users[email].invitesCount || 0) + 1;
+    lsSaveUsers(users);
+  }
+}
+function localSubscribe(email, cb){
+  const users = lsGetUsers();
+  if(users[email]) cb(users[email]);
+  return () => {};
+}
+async function localSetField(email, field, value){
+  const users = lsGetUsers();
+  if(!users[email]) return;
+  users[email][field] = value;
+  lsSaveUsers(users);
+}
+async function localLogout(){ localStorage.removeItem(LS_SESSION); }
+
+/* ================= WRAPPERS UNIFICADOS ================= */
+async function doSignUp(email, password){
+  return firebaseReady ? fbSignUp(email, password) : localSignUp(email, password);
+}
+async function doLogin(email, password){
+  return firebaseReady ? fbLogin(email, password) : localLogin(email, password);
+}
+async function doChangePassword(current, next){
+  return firebaseReady ? fbChangePassword(current, next) : localChangePassword(current, next);
+}
+async function creditReferral(refCode){
+  return firebaseReady ? fbCreditReferral(refCode) : localCreditReferral(refCode);
+}
+function subscribeCurrentUser(idOrEmail, cb){
+  return firebaseReady ? fbSubscribe(idOrEmail, cb) : localSubscribe(idOrEmail, cb);
+}
+async function saveUserField(field, value){
+  if(!currentUser) return;
+  currentUser[field] = value;
+  const key = firebaseReady ? currentUser.uid : currentUser.email;
+  try{ await (firebaseReady ? fbSetField(key, field, value) : localSetField(key, field, value)); }catch(e){ console.warn(e); }
+}
+async function doLogout(){ return firebaseReady ? fbLogout() : localLogout(); }
+
+/* ================= SESSÃO ================= */
+function bindUserRealtime(idOrEmail){
+  if(unsubscribeUserDoc) { try{ unsubscribeUserDoc(); }catch(e){} }
+  unsubscribeUserDoc = subscribeCurrentUser(idOrEmail, data => {
+    currentUser = Object.assign({ uid: firebaseReady ? idOrEmail : data.uid, email: data.email }, data);
+    renderProfileLoggedIn();
+    if(data.theme) applyTheme(data.theme, false);
+    if(data.layout) applyLayout(data.layout, false);
+    if(data.lang && data.lang !== currentLang) applyLang(data.lang, false);
+  });
+}
+
+function renderProfileLoggedIn(){
+  if(!currentUser) return;
+  document.getElementById('profileGuest').style.display = 'none';
+  document.getElementById('guestPrefs').style.display = 'none';
+  document.getElementById('refBanner').style.display = 'none';
+  document.getElementById('profileIn').classList.add('open');
+  document.getElementById('avatarInitial').textContent = (currentUser.email || '?')[0].toUpperCase();
+  document.getElementById('profileEmailShown').textContent = currentUser.email;
+  document.getElementById('profileNameShown').textContent = 'Conta Vitrine';
+  document.getElementById('statPoints').textContent = currentUser.points || 0;
+  document.getElementById('statOnline').textContent = currentUser.onlineCount || 0;
+  document.getElementById('statBalance').textContent = fmt(currentUser.balance || 0);
+  document.getElementById('statInvites').textContent = currentUser.invitesCount || 0;
+  const link = `${location.origin}${location.pathname}?ref=${currentUser.referralCode}`;
+  document.getElementById('inviteLinkInput').value = link;
+  renderPrefLists();
+}
+
+function renderProfileGuest(){
+  document.getElementById('profileIn').classList.remove('open');
+  document.getElementById('profileGuest').style.display = 'block';
+  document.getElementById('guestPrefs').style.display = 'block';
+  if(refCodeFromURL){
+    const b = document.getElementById('refBanner');
+    b.style.display = 'block';
+    b.textContent = t('ref_banner');
+  }
+  renderPrefLists();
+}
+
+/* ================= AUTENTICAÇÃO (modal) ================= */
+function openAuth(mode){ setAuthMode(mode || 'signup'); document.getElementById('authModal').classList.add('open'); }
+function closeAuth(){
+  document.getElementById('authModal').classList.remove('open');
+  ['authEmail','authPassword','authConfirmPassword'].forEach(id => document.getElementById(id).value = '');
+}
+function setAuthMode(mode){
+  authMode = mode;
+  document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
+  document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+  document.getElementById('authConfirmLabel').style.display = mode === 'signup' ? 'block' : 'none';
+  document.getElementById('authConfirmPassword').style.display = mode === 'signup' ? 'block' : 'none';
+  updateAuthTexts();
+  const note = document.getElementById('authRefNote');
+  if(mode === 'signup' && refCodeFromURL){
+    note.style.display = 'block';
+    note.textContent = t('auth_ref_note') + refCodeFromURL;
+  } else { note.style.display = 'none'; }
+}
+function updateAuthTexts(){
+  document.getElementById('authTitle').textContent = t(authMode === 'signup' ? 'auth_title_signup' : 'auth_title_login');
+  document.getElementById('authSubmitBtn').textContent = t(authMode === 'signup' ? 'auth_submit_signup' : 'auth_submit_login');
+}
+async function submitAuth(){
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const confirm = document.getElementById('authConfirmPassword').value;
+  if(!email.includes('@') || !email.includes('.')) return sendToast(t('toast_invalid_email'));
+  if(password.length < 6) return sendToast(t('toast_short_password'));
+  if(authMode === 'signup' && password !== confirm) return sendToast(t('toast_password_mismatch'));
+  try{
+    if(authMode === 'signup'){
+      const uid = await doSignUp(email, password);
+      closeAuth();
+      bindUserRealtime(firebaseReady ? uid : email);
+      sendToast(t('toast_account_created'));
+    } else {
+      const uid = await doLogin(email, password);
+      closeAuth();
+      bindUserRealtime(firebaseReady ? uid : email);
+      sendToast(t('toast_login_ok'));
+    }
+  }catch(err){
+    const code = err && (err.code || '');
+    if(code.includes('EMAIL_EXISTS') || code.includes('email-already-in-use')) sendToast(t('toast_email_exists'));
+    else if(code.includes('EMAIL_NOT_FOUND') || code.includes('user-not-found')) sendToast(t('toast_email_not_found'));
+    else if(code.includes('WRONG_PASSWORD') || code.includes('wrong-password')) sendToast(t('toast_wrong_password'));
+    else { console.error(err); sendToast(t('toast_generic_error')); }
+  }
+}
+function logoutUser(){
+  if(unsubscribeUserDoc) { try{ unsubscribeUserDoc(); }catch(e){} unsubscribeUserDoc = null; }
+  doLogout();
+  currentUser = null;
+  renderProfileGuest();
+  sendToast(t('toast_logged_out'));
+}
+
+/* ================= CONVITES ================= */
+function copyInviteLink(){
+  const input = document.getElementById('inviteLinkInput');
+  input.select(); input.setSelectionRange(0, 99999);
+  try{ navigator.clipboard.writeText(input.value); }catch(e){ document.execCommand('copy'); }
+  sendToast(t('toast_link_copied'));
+}
+
+/* ================= VENDEDOR (abre WhatsApp) ================= */
+function openSellerWhatsapp(){
+  const msg = encodeURIComponent('Olá! Quero saber mais sobre o modo vendedor na Vitrine.');
+  window.open(`https://wa.me/${SELLER_WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+}
+
+/* ================= SEGURANÇA (mudar palavra-passe) ================= */
+function toggleSecurityForm(){
+  const form = document.getElementById('securityForm');
+  const chevron = document.getElementById('securityChevron');
+  form.classList.toggle('open');
+  chevron.classList.toggle('open');
+}
+async function submitPasswordChange(){
+  const current = document.getElementById('secCurrent').value;
+  const next = document.getElementById('secNew').value;
+  const confirm = document.getElementById('secConfirm').value;
+  if(next.length < 6) return sendToast(t('toast_short_password'));
+  if(next !== confirm) return sendToast(t('toast_password_mismatch'));
+  try{
+    await doChangePassword(current, next);
+    sendToast(t('toast_password_updated'));
+    ['secCurrent','secNew','secConfirm'].forEach(id => document.getElementById(id).value = '');
+    toggleSecurityForm();
+  }catch(err){
+    const code = err && (err.code || '');
+    if(code.includes('WRONG_PASSWORD') || code.includes('wrong-password')) sendToast(t('toast_wrong_password'));
+    else { console.error(err); sendToast(t('toast_generic_error')); }
+  }
+}
+
+/* ================= TOAST ================= */
+let toastTimer;
+function sendToast(msg){
+  const el = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+}
+
+/* ================= INIT ================= */
+renderFeatured();
+renderFilters();
+renderMarket();
+applyTheme(currentTheme, false);
+applyLayout(currentLayout, false);
+applyLang(currentLang, false);
+renderProfileGuest();
+heroStartTextPhase();
+
+if(firebaseReady){
+  auth.onAuthStateChanged(user => {
+    if(user) bindUserRealtime(user.uid);
+    else renderProfileGuest();
+  });
+} else {
+  const savedEmail = localStorage.getItem(LS_SESSION);
+  if(savedEmail && lsGetUsers()[savedEmail]) bindUserRealtime(savedEmail);
+}
+</script>
+</body>
+</html>
